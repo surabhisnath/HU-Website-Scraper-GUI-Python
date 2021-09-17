@@ -10,11 +10,12 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import validators
 from tkinter import *
+from PyQt5.QtWidgets import QApplication, QLabel
 
-def getrow(d):
+def getrow(d, columns):
     return {i:d.get(i, "") for i in columns}
 
-def saveexcel(df, excelfile):
+def saveexcel(df, excelfile, columns):
     writer = pd.ExcelWriter(excelfile, engine='xlsxwriter', options = {'strings_to_numbers': True})
     df.to_excel(writer, encoding='utf-8', index=False, sheet_name='HU Doctoral Project Details')
     workbook = writer.book
@@ -43,17 +44,25 @@ def getdetails(student):
             datadict["URLs"] += tr.find('th').text + ": " + td.find('a').get('href') + "\n"
     return datadict
 
-def makedataframe(student_data):
+def makedataframe(student_data, columns):
     dataframe = pd.DataFrame(columns = columns)
     
     for sid, student in enumerate(student_data):
         datadict = getdetails(student)
-        row = getrow(datadict)
+        row = getrow(datadict, columns)
         assert(len(row) == len(columns))
         dataframe.loc[sid,:] = row;
     
     return dataframe
 
+def produceexcelgui(varlist, vartocol, master):
+    columns = []
+    for v, var in enumerate(varlist):
+        if var.get():
+            columns.append(vartocol[v+1])
+    produceexcel(columns, excelfile)
+    master.destroy()
+    
 def produceexcel(columns, excelfile):
     website = "http://www.mind-and-brain.de/people/doctoral-alumni/"
     website = requests.get(website)
@@ -62,21 +71,32 @@ def produceexcel(columns, excelfile):
     student_data = bs.find_all('div', class_ = 'students-list-item-full clearfix')
     num_students = len(student_data)
 
-    dataframe = makedataframe(student_data)  
+    dataframe = makedataframe(student_data, columns)  
     print(dataframe.columns.values)
-    saveexcel(dataframe, excelfile)
-
+    saveexcel(dataframe, excelfile, columns)
+    print("DONE")
+    
+     
 def initgui():
     master = Tk()
-    var1 = IntVar()
-    Checkbutton(master, text='male', variable=var1).grid(row=0, sticky=W)
-    var2 = IntVar()
-    Checkbutton(master, text='female', variable=var2).grid(row=1, sticky=W)
-    mainloop()
+    master.title("Web Scraper for M&B")
+    Label(master, text="This application allows you to customise your spreadsheet. Select the information to include from the list below:").grid(row=0)
+    vartocol = {1: "Name", 2: "E-mail", 3: "Doctoral Project Title", 4: "Project Description", 5: "Supervisors", 6: "Cohort", 7: "Funding", 8: "M&B topics", 9: "Institute", 10: "Status", 11: "Degrees obtained", 12: "Title", 13: "URLs"}
+    num_possible_cols = 13
+    varlist = []
+    for i in range(num_possible_cols):
+        varlist.append(IntVar(value=(vartocol[i+1] in defaultcolumns)))
+        Checkbutton(master, text=vartocol[i + 1], variable=varlist[i]).grid(row=i + 1, sticky=W)
+    
+    button = Button(master, text='Generate spreadsheet', width=25, command = lambda : produceexcelgui(varlist, vartocol, master)).grid(row=14)
+    master.mainloop()
 
 if __name__ == "__main__":
-    columns = ['Name', 'E-mail', 'Doctoral Project Title', 'Project Description', 'Supervisors', 'Cohort', 'URLs']
-    excelfile = "/Users/mac/Desktop/excel.xlsx"
-    initgui()
-    #produceexcel(columns, excelfile)
+    gui = True
+    defaultcolumns = ['Name', 'E-mail', 'Doctoral Project Title', 'Project Description', 'Supervisors', 'Cohort', 'URLs']
+    excelfile = "/Users/surabhisnath/Desktop/Python/excel.xlsx"
+    if gui == True:
+        initgui()
+    else:
+        produceexcel(defaultcolumns, excelfile)
     
