@@ -34,6 +34,7 @@ The GUI argument can be specified in one of the following ways:
 6. `--gui=false`
 7. `--gui=F`
 8. `--gui=f`
+
 where 1., 2., 3., 4. result in the GUI being displayed whereas 5, 6., 7., 8. do not display the GUI.
 If no `--gui` flag is specified, the default is considered to the true and the GUI is displayed.
 
