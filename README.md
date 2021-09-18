@@ -23,6 +23,8 @@ python webscraper.py --gui=[true or false] --savepath=[desired path to save the 
 The `--gui` and `--savepath` flags are optional.	
 [Note: there should be no spaces before or after the = sign as the command line interpreters splits arguments by spaces]
 
+### GUI Argument
+
 The `--gui` flag determines whether or not to display the GUI. Without the GUI, the default columns mentioned in the project instructions (namely, 1 - student name, 2 - title of their doctoral project, 3 - description of their doctoral project, 4 - list of supervisors, 5 - cohort year, 6 - URLs of any websites they have listed) are written onto the spreadsheet. With the GUI however, the user can customise the spreadsheet by choosing the columns to include or exclude.
 
 The GUI argument can be specified in one of the following ways: 
@@ -37,6 +39,8 @@ The GUI argument can be specified in one of the following ways:
 
 where 1., 2., 3., 4. result in the GUI being displayed whereas 5, 6., 7., 8. do not display the GUI.
 If no `--gui` flag is specified, the default is considered to the true and the GUI is displayed.
+
+### Savepath Argument
 
 The `--savepath` flag can be used to specify the location of where the spreadsheet should be saved.
 The path must include the path to the directory along with the filename. The paths can be absolute or relative.
@@ -71,3 +75,9 @@ If no `--savepath` flag is specified, the default savepath is set to current dir
 * Since there were no strict rules on how the spreadsheet should be formatter, I have used my freedom in the following ways:
 	- All URLs such as Researchgate, Academia.edu etc combined onto one column "URLs" where only valid URLs were written
 	- A separate email column was created where only valid E-mail IDs were written
+* All code is original and No code snippets were borrowed from anywhere.
+
+# Author details
+Name: Surabhi S Nath
+Matrikelnummer: 618777
+Program: M&B MSc., Track Brain
