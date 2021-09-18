@@ -1,16 +1,16 @@
-Encolsed in the folder are the following files:
+# Enclosed in the folder are the following files:
 	
 	1. webscraper.py - main code to be run
 	2. helpers.py - file containing helpful functions
 	3. requirements.txt - specifies the external packages required to run the code
 	4. README.md - this file
 
-Description:
+# Description:
 
 	The code is an implementation of Project 3: The Internet - Web Scraping on the Mind and Brain Doctoral Alumni webpage hosted at http://www.mind-and-brain.de/people/doctoral-alumni/. The student information acquired from the webpage is saved to an EXCEL spreadsheet. A Python GUI is also implemented to give the user more control on the information to be saved onto the spreadsheet.
 	The code was implemented and tested on MAC OS 2021 Big Sur operating system with M1 architecture, Python version 3.8.8, Anaconda.
 
-Executing the code:
+# Executing the code:
 
 	The code MUST be executed from the command line. This is a necessary for 2 reasons. One, the GUI package "Tkinter" does not interact well with IDEs such as Spyder or PyCharm. And two, the user can pass command line arguments when the code is executed from command line. 
 
@@ -44,7 +44,7 @@ Executing the code:
 
 	If no --savepath flag is specified, the default savepath is set to current directory and the default filename "MB_DoctoralAlumni.xlsx" is used.
 
-Notes:
+# Notes:
 
 	* The code has been formatted as per the PEP8 guidelines.
 	* Different steps are handled by different functions with helper functions defined in helpers.py (in order to not clutter the main file).
@@ -68,4 +68,3 @@ Notes:
 	* Since there were no strict rules on how the spreadsheet should be formatter, I have used my freedom in the following ways:
 		- All URLs such as Researchgate, Academia.edu etc combined onto one column "URLs" where only valid URLs were written
 		- A separate email column was created where only valid E-mail IDs were written
-
