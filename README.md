@@ -61,7 +61,7 @@ If no `--savepath` flag is specified, the default savepath is set to current dir
 	- No filename specified along with path
 	- Invalid filename extension specified
 * Default values are all initialised in the main and can be changed easily. These include:
-	- Default spreadsheet columns - 'Name', 'Doctoral Project Title', 'Project Description', 'Supervisors', 'Cohort', 'URLs'
+	- Default spreadsheet columns - Name, Doctoral Project Title, Project Description, Supervisors, Cohort, URLs
 	- Default GUI argument - set to true
 	- Default savepath - set to current directory from where the code is executed
 	- Default filename - MB_DoctoralAlumni.xlsx
@@ -79,5 +79,7 @@ If no `--savepath` flag is specified, the default savepath is set to current dir
 
 # Author details
 Name: Surabhi S Nath
+
 Matrikelnummer: 618777
+
 Program: M&B MSc., Track Brain
