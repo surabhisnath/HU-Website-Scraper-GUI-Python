@@ -43,12 +43,21 @@ def saveexcel(df, savepath, columns):
     workbook = writer.book
     worksheet = writer.sheets['HU Doctoral Student Details']
 
-    # Format spreadsheet design
-    header_format = workbook.add_format({'bold': True, 'align': 'center', 'valign': 'vcenter'})
+    # Format spreadsheet design - can be changed
+    
+    headerbold = True
+    headeralign = 'center'
+    headervalign = 'vcenter'
+    textwrap = True
+    bodyalign = 'justify'
+    bodyvalign = 'top'
+    colwidth = 60
+    
+    header_format = workbook.add_format({'bold': headerbold, 'align': headeralign, 'valign': headervalign})
     for col, value in enumerate(df.columns.values):
         worksheet.write(0, col, value, header_format)
-    data_format = workbook.add_format({'text_wrap': True, 'align': 'justify', 'valign': 'top'})
-    worksheet.set_column(0, len(columns) - 1, 60, data_format)
+    data_format = workbook.add_format({'text_wrap': textwrap, 'align': bodyalign, 'valign': bodyvalign})
+    worksheet.set_column(0, len(columns) - 1, colwidth, data_format)
 
     writer.save()
 
@@ -90,7 +99,7 @@ def getdetails(student):
     # Populates dictionary
     for tr in project_details.findAll('tr'):
         td = tr.find('td')
-        if tr.find('th').text == "E-mail" and td.text.find('@') >= 0 and td.text[td.text.find('@') + 1:].find('.') >= 0:
+        if tr.find('th').text == "E-mail" and td.text.find('@') >= 0 and td.text[td.text.find('@') + 1:].find('.') >= 0:    # Check for valid E-mail ID
             towrite = td.text.replace("-please remove this text-", "")
         elif tr.find('th').text == "M&B topics":
             towrite = td.text[0] + td.text[1:].replace('Topic', '\nTopic')
@@ -99,8 +108,7 @@ def getdetails(student):
 
         datadict[webnamestocolnames.get(tr.find('th').text, tr.find('th').text)] = towrite
 
-        # Writes url only if valid
-        if td.find('a') and validators.url(td.find('a').get('href')):
+        if td.find('a') and validators.url(td.find('a').get('href')):   # Check for valid URL
             datadict["URLs"] += tr.find('th').text + ": " + td.find('a').get('href') + "\n"
 
     return datadict
